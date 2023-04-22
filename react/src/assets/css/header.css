@@ -1,13 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;900&display=swap');
-
-* {
-    font-family: 'Montserrat', sans-serif;
-}
-
 #navbar {
     height: 100px;
     width: 100%;
-    background: #D9C1AB;
+    background: var(--background-color);
     display: flex;
     flex-direction: row;
     justify-content: center;
