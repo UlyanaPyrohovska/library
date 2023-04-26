@@ -2,6 +2,7 @@
 
 :root {
   --text-colour: #5E3228;
+  --text-color-2: #991915;
   --background-color: #D9C1AB;
 }
 
@@ -12,4 +13,14 @@
 
 body {
   margin: 0;
+}
+
+h1,
+h2,
+h4 {
+  color: var(--text-color-2);
+}
+
+span {
+  color: var(--text-colour);
 }

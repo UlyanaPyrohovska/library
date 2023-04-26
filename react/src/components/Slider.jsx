@@ -1,11 +1,11 @@
-import { Box, Container, Stack } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
+import '../assets/css/slider.css'
 
 export const SliderData = [
     {
-        text: '1Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem doloribus quisquam quis ea nobis, rem, illum saepe dolor dignissimos ipsum adipisci excepturi aperiam non eveniet iste repellendus quae quam? Animi!'
+        text: '1Lörem ipsum gönt mavis i multinesm bloggbävning mobillångfilm poddsändning såväl som ekogisk.Mp3-spelare vandrande skolbuss, än dra ett streck i sanden kontrasion och Viktor Nordin heteronetik i paddeltennis.Stuprörspolitik kuddbok emedan biofoni att fröbomba inte sudoku preosmos rödgrönrosa, inte konlog ifall kuratera samt halmdocka.'
     },
     {
         text: '2Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem doloribus quisquam quis ea nobis, rem, illum saepe dolor dignissimos ipsum adipisci excepturi aperiam non eveniet iste repellendus quae quam? Animi!'
@@ -31,33 +31,56 @@ function Slider() {
     if (!Array.isArray(SliderData) || SliderData.length <= 0) {
         return null;
     }
-    return (
-        <Stack direction="row" spacing={1}>
-            <ArrowBackIosIcon color='secondary' style={{ cursor: 'pointer' }} onClick={prevSlide} fontSize='large' />
-            {SliderData.map((slide, index) => {
-                return (
-                    <Box
-                        style={index === current ? { display: "block" } : { display: "none" }}
-                        key={index}
-                    >
-                        {index === current && (
-                            <Box fontSize="large" color="primary.darker"
-                                sx={
-                                    {
-                                        fontWeight: "500",
-                                        fontSize: "18px",
-                                        lineHeight: "22px",
-                                        maxWidth: "430px"
-                                    }
-                                }
-                            >{slide.text}</Box>
-                        )}
-                    </Box>
-                )
+    const autoPlayRef = useRef()
 
-            })}
-            <ArrowForwardIosIcon color='secondary' style={{ cursor: 'pointer' }} onClick={nextSlide} fontSize='large' />
-        </Stack>
+    useEffect(() => {
+        autoPlayRef.current = nextSlide
+    })
+
+    useEffect(() => {
+        const play = () => {
+            autoPlayRef.current()
+        }
+
+        const interval = setInterval(play, 5000)
+        return () => clearInterval(interval)
+    }, [])
+
+    return (
+        <div className='slider-wrap'>
+            <div className='slider'>
+                <ArrowBackIosIcon color='secondary' style={{ cursor: 'pointer' }} onClick={prevSlide} fontSize='large' />
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                    <h1 className='title'>Репозиторій КДАДПіД</h1>
+                    {SliderData.map((slide, index) => {
+                        return (
+                            <div
+                                className={index === current ? "slide active" : "slide"}
+                                key={index}
+                            >
+                                {index === current && (
+                                    <span>{slide.text}</span>
+                                )}
+
+                            </div>
+                        )
+
+                    })}
+                    <div style={{ marginTop: "40px" }}>
+                        {SliderData.map((dot, index) => {
+                            return (
+                                <div
+                                    key={index}
+                                    className={index === current ? "dot active" : "dot"}
+                                ></div>
+                            )
+                        })}
+                    </div>
+                </div>
+                <ArrowForwardIosIcon color='secondary' style={{ cursor: 'pointer' }} onClick={nextSlide} fontSize='large' />
+            </div>
+
+        </div>
     )
 }
 

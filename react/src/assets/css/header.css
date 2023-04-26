@@ -11,6 +11,7 @@
     line-height: 120%;
     color: #5D3228 !important;
     text-decoration: none;
+    filter: drop-shadow(0px 10px 25px rgba(133, 133, 133, 0.15));
 }
 
 #navbar a {
@@ -28,6 +29,7 @@
 
 #navbar .buttons {
     padding: 40.5px;
+    cursor: pointer;
 }
 
 #navbar .logo {
