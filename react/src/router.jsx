@@ -9,6 +9,9 @@ import GeneralInfo from "./views/GenInfo"
 import Schedule from "./views/Schedule"
 import Contacts from "./views/Contacts"
 import Structure from "./views/Structure"
+import AdminLayout from "./components/AdminLayout"
+import AdminPanel from "./views/admin/AdminPanel"
+import NewsAdmin from "./views/admin/NewsAdmin"
 
 const router = createBrowserRouter(
     [
@@ -54,6 +57,20 @@ const router = createBrowserRouter(
                     path: '/signup',
                     element: <Signup />
                 }
+            ]
+        },
+        {
+            path: '/admin',
+            element: <AdminLayout />,
+            children: [
+                {
+                    path: '/admin',
+                    element: <AdminPanel />
+                },
+                {
+                    path: '/admin/news',
+                    element: <NewsAdmin />
+                },
             ]
         }
     ])

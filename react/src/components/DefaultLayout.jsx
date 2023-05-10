@@ -19,9 +19,9 @@ export default function DefaultLayout() {
     //     }
     // }, []);
 
-    if (!userToken) {
-        return <Navigate to='login'></Navigate>
-    }
+    // if (!userToken) {
+    //     return <Navigate to='login'></Navigate>
+    // }
 
     return (
         <div>
