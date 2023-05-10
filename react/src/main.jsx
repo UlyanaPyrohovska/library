@@ -5,6 +5,7 @@ import router from './router'
 import { RouterProvider } from 'react-router-dom'
 import { ContextProvider } from './contexts/ContextProvider'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Loader from './components/Loader'
 
 export const theme = createTheme({
   status: {
@@ -25,6 +26,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <ContextProvider>
+        <Loader />
         <RouterProvider router={router} />
       </ContextProvider>
     </ThemeProvider>

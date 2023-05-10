@@ -4,43 +4,31 @@ import Header from "./Header";
 import { userStateContext } from "../contexts/ContextProvider";
 import { Box, CircularProgress, Container } from "@mui/material";
 import { useEffect, useState } from "react";
+import Loader from "./Loader";
 
 
 export default function DefaultLayout() {
+    const { currentUser, userToken, setLoad } = userStateContext();
 
-    useEffect(() => {
-        const timer = setTimeout(() => { setIsLoading(false) }, 1000);
-        return () => { clearTimeout(timer); };
-    }, []);
-
-    const { currentUser, userToken } = userStateContext()
-    const [isLoading, setIsLoading] = useState(true);
+    // useEffect(() => {
+    //     if (document.readyState === 'complete') {
+    //         setLoad(false);
+    //     } else {
+    //         window.addEventListener('load', setLoad(false), false);
+    //         return () => window.removeEventListener('load', setLoad(false));
+    //     }
+    // }, []);
 
     if (!userToken) {
         return <Navigate to='login'></Navigate>
     }
 
-    const showLoader = () => {
-        return (
-            <Box padding={'40vh 0 '} display={'flex'} alignItems={'center'} justifyContent={'center'}>
-                <CircularProgress size={150}></CircularProgress>
-            </Box>
-        );
-    };
-
-
     return (
-        <>
-            <div style={{ display: isLoading ? "block" : "none" }} >
-                {showLoader()}
-            </div >
-            <div style={{ display: isLoading ? "none" : "block" }}>
-                <Header></Header>
-                <Outlet>
-                </Outlet>
-                <Footer></Footer>
-            </div>
-        </>
-
+        <div>
+            <Header></Header>
+            <Outlet>
+            </Outlet>
+            <Footer></Footer>
+        </div>
     )
 }

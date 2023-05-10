@@ -3,6 +3,8 @@ import { createContext, useContext, useState } from "react"
 const StateContext = createContext({
     currentUser: {},
     userToken: null,
+    load: true,
+    setLoad: () => { },
     setCurrentUser: () => { },
     setUserToken: () => { }
 });
@@ -10,6 +12,7 @@ const StateContext = createContext({
 export const ContextProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState({});
     const [userToken, _setUserToken] = useState(localStorage.getItem('TOKEN') || '');
+    const [load, setLoad] = useState(true);
 
     const setUserToken = (token) => {
         if (token) {
@@ -27,6 +30,8 @@ export const ContextProvider = ({ children }) => {
                 setCurrentUser,
                 userToken,
                 setUserToken,
+                load,
+                setLoad
             }}
         >
             {children}
