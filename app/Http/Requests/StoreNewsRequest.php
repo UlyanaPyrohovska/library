@@ -11,9 +11,15 @@ class StoreNewsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
+    // protected function prepareForValidation()
+    // {
+    //     $this->merge([
+    //         'user_id' => $this->user()->id
+    //     ]);
+    // }
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,7 +30,8 @@ class StoreNewsRequest extends FormRequest
         return [
             'title' => 'required|string|max:255',
             'body' => 'required|string',
-            'image' => 'nullable|image|max:2048'
+            'image' => 'required|string',
+            // 'user_id' => 'exists:users,id',
         ];
     }
 }

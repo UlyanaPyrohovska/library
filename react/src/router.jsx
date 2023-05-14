@@ -12,6 +12,7 @@ import Structure from "./views/Structure"
 import AdminLayout from "./components/AdminLayout"
 import AdminPanel from "./views/admin/AdminPanel"
 import NewsAdmin from "./views/admin/NewsAdmin"
+import NewsAdd from "./views/admin/NewsAdd"
 
 const router = createBrowserRouter(
     [
@@ -70,6 +71,10 @@ const router = createBrowserRouter(
                 {
                     path: '/admin/news',
                     element: <NewsAdmin />
+                },
+                {
+                    path: '/admin/news/add',
+                    element: <NewsAdd />
                 },
             ]
         }

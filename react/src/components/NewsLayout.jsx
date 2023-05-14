@@ -1,6 +1,8 @@
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import NewsComponent from './NewsComponent'
 import { Pagination } from '@mui/material'
+import axiosClient from '../axios';
+import { userStateContext } from '../contexts/ContextProvider';
 
 const news = [
     {
@@ -77,7 +79,35 @@ export function usePagination(data, itemsPerPage) {
 }
 
 function NewsLayout() {
+    const { setLoad } = userStateContext();
     let [page, setPage] = useState(1);
+    const [news, setNews] = useState([{
+        title: "",
+        slug: "",
+        body: "",
+        image: null,
+        image_url: null,
+    }
+    ]
+    );
+
+    const getNews = () => {
+        axiosClient.get('/news').then(({ data }) => {
+            const aux = [];
+            data.data.map((el) => {
+                let n = el.created_at.slice(0, 10);
+                let l = el.body.slice(0, 200) + '...';
+                aux.push({ ...el, body: l, created_at: n });
+            })
+            setNews(aux);
+            setLoad(false);
+        })
+    }
+
+    useEffect(() => {
+        getNews();
+    }, []);
+
     const numOfElements = 5;
 
     const _DATA = usePagination(news, numOfElements);
@@ -91,7 +121,7 @@ function NewsLayout() {
             <h2 className='news-title'>Новини та події</h2>
             {_DATA.currentData().map((item, index) => {
                 return (
-                    <NewsComponent title={item.title} text={item.text} time={item.time} key={index}></NewsComponent>
+                    <NewsComponent title={item.title} text={item.body} time={item.created_at} key={index}></NewsComponent>
                 )
             })}
             <Pagination

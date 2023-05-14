@@ -11,6 +11,7 @@ class UpdateNewsRequest extends FormRequest
      */
     public function authorize(): bool
     {
+        $news = $this->route('news');
         return true;
     }
 

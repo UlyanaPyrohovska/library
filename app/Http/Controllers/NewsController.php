@@ -18,7 +18,13 @@ class NewsController extends Controller
      */
     public function index(Request $request)
     {
-        return NewsResource::collection(News::all()->orderBy('created_at', 'desc')->paginate(10));
+        return NewsResource::collection(
+            News::all()
+                ->sortBy(
+                    'created_at',
+                    descending: false
+                )
+        );
     }
 
     /**
@@ -55,7 +61,7 @@ class NewsController extends Controller
 
         // Check if image was given and save on local file system
         if (isset($data['image'])) {
-            $relativePath = $this->saveImage($data['image']);
+            $relativePath = $this->save_image($data['image']);
             $data['image'] = $relativePath;
 
             // If there is an old image, delete it
