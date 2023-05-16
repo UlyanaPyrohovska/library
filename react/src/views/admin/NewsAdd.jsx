@@ -1,7 +1,9 @@
 import { Box, Button, Container, TextField, Typography } from '@mui/material'
 import ControlPointRoundedIcon from '@mui/icons-material/ControlPointRounded';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axiosClient from '../../axios';
+import { useNavigate, useParams } from 'react-router-dom';
+import { userStateContext } from '../../contexts/ContextProvider';
 
 function NewsAdd() {
     const [news, setNews] = useState({
@@ -11,6 +13,19 @@ function NewsAdd() {
         image: null,
         image_url: null,
     });
+    const { id } = useParams();
+    const { setLoad } = userStateContext();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (id) {
+            setLoad(true);
+            axiosClient.get(`/news/${id}`).then(({ data }) => {
+                setNews(data.data);
+                setLoad(false);
+            });
+        }
+    }, []);
 
     const onImageChoose = (ev) => {
         const file = ev.target.files[0];
@@ -38,22 +53,20 @@ function NewsAdd() {
         }
         delete payload.image_url;
         let res = null;
-        if (news.id) {
-            res = axiosClient.put(`/news/${news.id}`, payload);
+        if (id) {
+            res = axiosClient.put(`/news/${id}`, payload);
         } else {
             res = axiosClient.post("/news", payload);
         }
-
-        res
-            .then((res) => {
-                console.log(res);
-                navigate("/admin/news");
-                if (news.id) {
-                    showToast("News post was updated");
-                } else {
-                    showToast("News post was created");
-                }
-            })
+        res.then((res) => {
+            console.log(res);
+            navigate("/admin/news");
+            if (news.id) {
+                showToast("News post was updated");
+            } else {
+                showToast("News post was created");
+            }
+        })
             .catch((err) => {
                 if (err && err.response) {
                     setError(err.response.data.message);
@@ -70,7 +83,7 @@ function NewsAdd() {
                     <Button
                         color="primary" type="submit"
                         variant="contained">
-                        Post news
+                        Save
                     </Button>
                 </Box>
                 {news.image_url && (
@@ -101,7 +114,7 @@ function NewsAdd() {
                     }
                 />
                 <TextField
-                    placeholder="MultiLine with rows: 2 and rowsMax: 4"
+                    placeholder="Text"
                     multiline
                     minRows={20}
                     maxRows={Infinity}

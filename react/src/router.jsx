@@ -13,6 +13,10 @@ import AdminLayout from "./components/AdminLayout"
 import AdminPanel from "./views/admin/AdminPanel"
 import NewsAdmin from "./views/admin/NewsAdmin"
 import NewsAdd from "./views/admin/NewsAdd"
+import UserAdmin from "./views/admin/UserAdmin"
+import NewsLayout from "./components/NewsLayout"
+import NotFound from "./views/NotFound"
+import NewsView from "./views/NewsView"
 
 const router = createBrowserRouter(
     [
@@ -43,6 +47,18 @@ const router = createBrowserRouter(
                 {
                     path: '/structure',
                     element: <Structure />
+                },
+                {
+                    path: '/news',
+                    element: <NewsLayout />
+                },
+                {
+                    path: '/news/:slug',
+                    element: <NewsView />
+                },
+                {
+                    path: '/not-found',
+                    element: <NotFound />
                 },
             ]
         },
@@ -75,6 +91,14 @@ const router = createBrowserRouter(
                 {
                     path: '/admin/news/add',
                     element: <NewsAdd />
+                },
+                {
+                    path: '/admin/news/:id',
+                    element: <NewsAdd />
+                },
+                {
+                    path: '/admin/users',
+                    element: <UserAdmin />
                 },
             ]
         }

@@ -1,5 +1,6 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types';
+import { userStateContext } from '../../contexts/ContextProvider';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
@@ -20,11 +21,7 @@ import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import { Button, Container } from '@mui/material';
 import ControlPointRoundedIcon from '@mui/icons-material/ControlPointRounded';
 import axiosClient from '../../axios';
-import { useState } from 'react';
-import { userStateContext } from '../../contexts/ContextProvider';
-import { useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-
 
 function TablePaginationActions(props) {
     const theme = useTheme();
@@ -87,35 +84,36 @@ TablePaginationActions.propTypes = {
     rowsPerPage: PropTypes.number.isRequired,
 };
 
-function CustomPaginationActionsTable() {
+function UserAdmin() {
     const { setLoad } = userStateContext();
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
-    const [news, setNews] = useState([]);
+    const [users, setUsers] = useState([]);
 
-    const getNews = () => {
-        axiosClient.get('/news').then(({ data }) => {
-            setNews(data.data);
+    const getUsers = () => {
+        axiosClient.get('/users').then(({ data }) => {
+            setUsers(data.data);
             setLoad(false);
+            console.log(data.data);
         })
     }
 
-    const deleteNews = (id) => {
-        axiosClient.delete(`/news/${id}`);
-        const auxN = news.filter((n) => {
+    const deleteUser = (id) => {
+        axiosClient.delete(`/users/${id}`);
+        const auxU = users.filter((n) => {
             return n.id != id;
         });
-        setNews(auxN);
+        setUsers(auxU);
         setPage(0);
     }
 
     useEffect(() => {
-        getNews();
+        getUsers();
     }, []);
 
     // Avoid a layout jump when reaching the last page with empty rows.
     const emptyRows =
-        page > 0 ? Math.max(0, (1 + page) * rowsPerPage - news.length) : 0;
+        page > 0 ? Math.max(0, (1 + page) * rowsPerPage - users.length) : 0;
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -131,15 +129,15 @@ function CustomPaginationActionsTable() {
             <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
                 <TableBody>
                     {(rowsPerPage > 0
-                        ? news.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                        : news
+                        ? users.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                        : users
                     ).map((row) => (
                         <TableRow key={row.id}>
                             <TableCell component="th" scope="row">
-                                {row.title}
+                                {row.name}
                             </TableCell>
                             <TableCell style={{ width: 190 }} align="right">
-                                {row.body.slice(0, 20) + '...'}
+                                {row.email}
                             </TableCell>
                             <TableCell style={{ width: 190 }} align="right">
                                 {row.created_at}
@@ -148,10 +146,10 @@ function CustomPaginationActionsTable() {
                                 {row.updated_at}
                             </TableCell>
                             <TableCell style={{ width: 160 }} align="right">
-                                <IconButton color='secondary' component={Link} to={`/admin/news/${row.id}`}>
+                                <IconButton color='secondary' component={Link} to={`/admin/user/${row.id}`}>
                                     <EditRoundedIcon></EditRoundedIcon>
                                 </IconButton>
-                                <IconButton color='darker' onClick={() => deleteNews(row.id)}>
+                                <IconButton color='darker' onClick={() => deleteUser(row.id)}>
                                     <DeleteRoundedIcon></DeleteRoundedIcon>
                                 </IconButton>
                             </TableCell>
@@ -169,7 +167,7 @@ function CustomPaginationActionsTable() {
                         <TablePagination
                             rowsPerPageOptions={[10, 15, 25, { label: 'All', value: -1 }]}
                             colSpan={3}
-                            count={news.length}
+                            count={users.length}
                             rowsPerPage={rowsPerPage}
                             page={page}
                             SelectProps={{
@@ -189,18 +187,4 @@ function CustomPaginationActionsTable() {
     );
 }
 
-function NewsAdmin() {
-
-    return (
-        <Container>
-            <Box paddingBottom={5}>
-                <NavLink to={'/admin/news/add'}>
-                    <Button startIcon={<ControlPointRoundedIcon></ControlPointRoundedIcon>} color='darker' variant="outlined" >Додати новину</Button>
-                </NavLink>
-            </Box>
-            <CustomPaginationActionsTable></CustomPaginationActionsTable>
-        </Container>
-    )
-}
-
-export default NewsAdmin
+export default UserAdmin

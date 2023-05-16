@@ -3,54 +3,7 @@ import NewsComponent from './NewsComponent'
 import { Pagination } from '@mui/material'
 import axiosClient from '../axios';
 import { userStateContext } from '../contexts/ContextProvider';
-
-const news = [
-    {
-        title: "Lörem ipsum gönt mavis i multinesm",
-        text: "Lörem ipsum gönt mavis i multinesm bloggbävning mobillångfilm poddsändning såväl som ekogisk.Mp3-spelare vandrande skolbuss, än dra ett streck i sanden kontrasion och Viktor Nordin heteronetik i paddeltennis.Stuprörspolitik kuddbok emedan biofoni att fröbomba inte sudoku preosmos rödgrönrosa, inte konlog ifall halmdocka.",
-        time: "2022-04-26"
-    },
-    {
-        title: "News2",
-        text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste, eos. Repellat corrupti, optio iusto, soluta recusandae debitis vitae in harum beatae labore accusamus quam maiores nisi suscipit voluptatum saepe? Nostrum?",
-        time: "2022-04-27"
-    },
-    {
-        title: "News3",
-        text: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Praesentium enim rem dicta voluptates cumque, odio facilis quia sequi unde, doloremque, cupiditate reiciendis quam hic expedita quos quibusdam in illo odit!",
-        time: "2022-04-29"
-    },
-    {
-        title: "Lörem ipsum gönt mavis i multinesm",
-        text: "Lörem ipsum gönt mavis i multinesm bloggbävning mobillångfilm poddsändning såväl som ekogisk.Mp3-spelare vandrande skolbuss, än dra ett streck i sanden kontrasion och Viktor Nordin heteronetik i paddeltennis.Stuprörspolitik kuddbok emedan biofoni att fröbomba inte sudoku preosmos rödgrönrosa, inte konlog ifall halmdocka.",
-        time: "2022-04-26"
-    },
-    {
-        title: "News2",
-        text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste, eos. Repellat corrupti, optio iusto, soluta recusandae debitis vitae in harum beatae labore accusamus quam maiores nisi suscipit voluptatum saepe? Nostrum?",
-        time: "2022-04-27"
-    },
-    {
-        title: "News3",
-        text: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Praesentium enim rem dicta voluptates cumque, odio facilis quia sequi unde, doloremque, cupiditate reiciendis quam hic expedita quos quibusdam in illo odit!",
-        time: "2022-04-29"
-    },
-    {
-        title: "Lörem ipsum gönt mavis i multinesm",
-        text: "Lörem ipsum gönt mavis i multinesm bloggbävning mobillångfilm poddsändning såväl som ekogisk.Mp3-spelare vandrande skolbuss, än dra ett streck i sanden kontrasion och Viktor Nordin heteronetik i paddeltennis.Stuprörspolitik kuddbok emedan biofoni att fröbomba inte sudoku preosmos rödgrönrosa, inte konlog ifall halmdocka.",
-        time: "2022-04-26"
-    },
-    {
-        title: "News2",
-        text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste, eos. Repellat corrupti, optio iusto, soluta recusandae debitis vitae in harum beatae labore accusamus quam maiores nisi suscipit voluptatum saepe? Nostrum?",
-        time: "2022-04-27"
-    },
-    {
-        title: "News7",
-        text: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Praesentium enim rem dicta voluptates cumque, odio facilis quia sequi unde, doloremque, cupiditate reiciendis quam hic expedita quos quibusdam in illo odit!",
-        time: "2022-04-29"
-    },
-]
+import { useNavigate } from 'react-router-dom';
 
 export function usePagination(data, itemsPerPage) {
     const [currentPage, setCurrentPage] = useState(1);
@@ -81,6 +34,12 @@ export function usePagination(data, itemsPerPage) {
 function NewsLayout() {
     const { setLoad } = userStateContext();
     let [page, setPage] = useState(1);
+    let navigate = useNavigate();
+
+    const routeChange = (slug) => {
+        let path = `/news/${slug}`;
+        navigate(path);
+    }
     const [news, setNews] = useState([{
         title: "",
         slug: "",
@@ -91,7 +50,21 @@ function NewsLayout() {
     ]
     );
 
+    const NewsComponent = ({ title, text, time, slug }) => {
+        return (
+            <div className='news-el-wrap'>
+                <div className='news-row'>
+                    <h4 className='news-el-title'>{title}</h4>
+                    <span className='news-date'>{time}</span>
+                </div>
+                <span>{text}</span>
+                <button onClick={() => routeChange(slug)} className='news-read-more'>Читати далі</button>
+            </div>
+        )
+    }
+
     const getNews = () => {
+        setLoad(true);
         axiosClient.get('/news').then(({ data }) => {
             const aux = [];
             data.data.map((el) => {
@@ -121,7 +94,7 @@ function NewsLayout() {
             <h2 className='news-title'>Новини та події</h2>
             {_DATA.currentData().map((item, index) => {
                 return (
-                    <NewsComponent title={item.title} text={item.body} time={item.created_at} key={index}></NewsComponent>
+                    <NewsComponent title={item.title} text={item.body} time={item.created_at} key={index} slug={item.slug}></NewsComponent>
                 )
             })}
             <Pagination

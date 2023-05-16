@@ -1,6 +1,7 @@
 import React from 'react'
 
-function NewsComponent({ title, text, time }) {
+function NewsComponent({ title, text, time, slug }) {
+
     return (
         <div className='news-el-wrap'>
             <div className='news-row'>

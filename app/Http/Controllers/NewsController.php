@@ -125,4 +125,9 @@ class NewsController extends Controller
 
         return $relativePath;
     }
+
+    public function getBySlug(News $news)
+    {
+        return new NewsResource($news);
+    }
 }
