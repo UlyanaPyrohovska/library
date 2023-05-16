@@ -69,12 +69,12 @@ export default function AdminLayout(props) {
                         <ListItemText primary='Новини' />
                     </ListItemButton>
                 </ListItem>
-                <ListItem disablePadding to={'/admin/pages'}>
+                <ListItem disablePadding to={'/admin/pubhouses'}>
                     <ListItemButton>
                         <ListItemIcon>
                             <LayersRoundedIcon />
                         </ListItemIcon>
-                        <ListItemText primary='Сторінки' />
+                        <ListItemText primary='Видання' />
                     </ListItemButton>
                 </ListItem>
                 <ListItem disablePadding>
@@ -91,6 +91,14 @@ export default function AdminLayout(props) {
                             <GroupIcon />
                         </ListItemIcon>
                         <ListItemText primary='Користувачі' />
+                    </ListItemButton>
+                </ListItem>
+                <ListItem disablePadding>
+                    <ListItemButton to={'/admin/authors'}>
+                        <ListItemIcon>
+                            <GroupIcon />
+                        </ListItemIcon>
+                        <ListItemText primary='Автори' />
                     </ListItemButton>
                 </ListItem>
             </List>

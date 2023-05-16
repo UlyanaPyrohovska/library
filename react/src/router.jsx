@@ -17,6 +17,11 @@ import UserAdmin from "./views/admin/UserAdmin"
 import NewsLayout from "./components/NewsLayout"
 import NotFound from "./views/NotFound"
 import NewsView from "./views/NewsView"
+import RepositoryLayout from "./components/RepositoryLayout"
+import Search from "./views/repo/Search"
+import RepoHome from "./views/repo/RepoHome"
+import AuthorsAdmin from "./views/admin/AuthorsAdmin"
+import ResourceAdmin from "./views/admin/ResourceAdmin"
 
 const router = createBrowserRouter(
     [
@@ -63,6 +68,20 @@ const router = createBrowserRouter(
             ]
         },
         {
+            path: '/repo',
+            element: <RepositoryLayout />,
+            children: [
+                {
+                    path: '/repo/search',
+                    element: <Search />
+                },
+                {
+                    path: '/repo',
+                    element: <RepoHome />
+                }
+            ]
+        },
+        {
             path: '/',
             element: <GuestLayout />,
             children: [
@@ -99,6 +118,14 @@ const router = createBrowserRouter(
                 {
                     path: '/admin/users',
                     element: <UserAdmin />
+                },
+                {
+                    path: '/admin/authors',
+                    element: <AuthorsAdmin />
+                },
+                {
+                    path: '/admin/resources',
+                    element: <ResourceAdmin />
                 },
             ]
         }

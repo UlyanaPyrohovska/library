@@ -1,5 +1,4 @@
 import { Box, Button, Container, TextField, Typography } from '@mui/material'
-import ControlPointRoundedIcon from '@mui/icons-material/ControlPointRounded';
 import React, { useEffect, useState } from 'react'
 import axiosClient from '../../axios';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -44,7 +43,6 @@ function NewsAdd() {
     };
 
     function handleSubmit(ev) {
-        console.log('here');
         ev.preventDefault();
 
         const payload = { ...news };
@@ -61,11 +59,6 @@ function NewsAdd() {
         res.then((res) => {
             console.log(res);
             navigate("/admin/news");
-            if (news.id) {
-                showToast("News post was updated");
-            } else {
-                showToast("News post was created");
-            }
         })
             .catch((err) => {
                 if (err && err.response) {

@@ -18,7 +18,7 @@ import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
-import { Button, Container } from '@mui/material';
+import { Button, Container, TableHead } from '@mui/material';
 import ControlPointRoundedIcon from '@mui/icons-material/ControlPointRounded';
 import axiosClient from '../../axios';
 import { Link, NavLink } from 'react-router-dom';
@@ -127,6 +127,23 @@ function UserAdmin() {
     return (
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
+                <TableHead>
+                    <TableCell component="th" scope="row">
+                        Ім'я
+                    </TableCell>
+                    <TableCell align="center" component="th" scope="row">
+                        Email
+                    </TableCell>
+                    <TableCell align="center" component="th" scope="row">
+                        Дата створення
+                    </TableCell>
+                    <TableCell align="center" component="th" scope="row">
+                        Дата редагування
+                    </TableCell>
+                    <TableCell align="center" component="th" scope="row">
+                        Дії
+                    </TableCell>
+                </TableHead>
                 <TableBody>
                     {(rowsPerPage > 0
                         ? users.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
@@ -136,16 +153,16 @@ function UserAdmin() {
                             <TableCell component="th" scope="row">
                                 {row.name}
                             </TableCell>
-                            <TableCell style={{ width: 190 }} align="right">
+                            <TableCell style={{ width: 190 }} align="center">
                                 {row.email}
                             </TableCell>
-                            <TableCell style={{ width: 190 }} align="right">
+                            <TableCell style={{ width: 190 }} align="center">
                                 {row.created_at}
                             </TableCell>
-                            <TableCell style={{ width: 190 }} align="right">
+                            <TableCell style={{ width: 190 }} align="center">
                                 {row.updated_at}
                             </TableCell>
-                            <TableCell style={{ width: 160 }} align="right">
+                            <TableCell style={{ width: 160 }} align="center">
                                 <IconButton color='secondary' component={Link} to={`/admin/user/${row.id}`}>
                                     <EditRoundedIcon></EditRoundedIcon>
                                 </IconButton>

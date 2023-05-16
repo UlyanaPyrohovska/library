@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState } from 'react'
-import NewsComponent from './NewsComponent'
 import { Pagination } from '@mui/material'
 import axiosClient from '../axios';
 import { userStateContext } from '../contexts/ContextProvider';

@@ -3,19 +3,19 @@ import React from 'react'
 const links = [
     {
         title: "Електорнний каталог",
-        link: "https://www.youtube.com/"
+        link: "/repo"
     },
     {
         title: "Отримати УДК/JEL",
-        link: "https://www.youtube.com/"
+        link: "/repo"
     },
     {
         title: "Репозиторій КДАДПіД",
-        link: "https://www.youtube.com/"
+        link: "/repo"
     },
     {
         title: "Наукова періодика КДАДПіД",
-        link: "https://www.youtube.com/"
+        link: "/repo"
     },
 ]
 function LinksLayout() {

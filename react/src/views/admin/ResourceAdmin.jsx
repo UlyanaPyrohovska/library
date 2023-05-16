@@ -91,31 +91,31 @@ function CustomPaginationActionsTable() {
     const { setLoad } = userStateContext();
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
-    const [news, setNews] = useState([]);
+    const [autors, setResources] = useState([]);
 
-    const getNews = () => {
-        axiosClient.get('/news').then(({ data }) => {
-            setNews(data.data);
+    const getAuthors = () => {
+        axiosClient.get('/resources').then(({ data }) => {
+            setResources(data.data);
             setLoad(false);
         })
     }
 
-    const deleteNews = (id) => {
-        axiosClient.delete(`/news/${id}`);
-        const auxN = news.filter((n) => {
+    const deleteResources = (id) => {
+        axiosClient.delete(`/resources/${id}`);
+        const auxN = autors.filter((n) => {
             return n.id != id;
         });
-        setNews(auxN);
+        setResources(auxN);
         setPage(0);
     }
 
     useEffect(() => {
-        getNews();
+        getAuthors();
     }, []);
 
     // Avoid a layout jump when reaching the last page with empty rows.
     const emptyRows =
-        page > 0 ? Math.max(0, (1 + page) * rowsPerPage - news.length) : 0;
+        page > 0 ? Math.max(0, (1 + page) * rowsPerPage - autors.length) : 0;
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -134,41 +134,50 @@ function CustomPaginationActionsTable() {
                         Назва
                     </TableCell>
                     <TableCell align="center" component="th" scope="row">
-                        Опис
+                        Рік видання
                     </TableCell>
                     <TableCell align="center" component="th" scope="row">
-                        Дата створення
+                        ISBN
                     </TableCell>
                     <TableCell align="center" component="th" scope="row">
-                        Дата редагування
+                        Кількість сторінок
                     </TableCell>
                     <TableCell align="center" component="th" scope="row">
-                        Дії
+                        Кількість переглядів
+                    </TableCell>
+                    <TableCell align="center" component="th" scope="row">
+                        Кількість завантажень
                     </TableCell>
                 </TableHead>
                 <TableBody>
                     {(rowsPerPage > 0
-                        ? news.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                        : news
+                        ? autors.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                        : autors
                     ).map((row) => (
                         <TableRow key={row.id}>
                             <TableCell component="th" scope="row">
-                                {row.title}
+                                {row.name}
                             </TableCell>
-                            <TableCell style={{ width: 190 }} align="center">
-                                {row.body.slice(0, 20) + '...'}
+                            <TableCell align="center">
+                                {row.year}
                             </TableCell>
-                            <TableCell style={{ width: 190 }} align="center">
-                                {row.created_at}
+                            <TableCell align="center">
+                                {row.isbn}
                             </TableCell>
-                            <TableCell style={{ width: 190 }} align="center">
-                                {row.updated_at}
+                            <TableCell align="center">
+                                {row.num_of_pages}
+                            </TableCell>
+                            <TableCell align="center">
+                                {row.num_of_views}
+                            </TableCell>
+                            <TableCell align="center">
+                                {row.num_of_down}
                             </TableCell>
                             <TableCell style={{ width: 160 }} align="center">
-                                <IconButton color='secondary' component={Link} to={`/admin/news/${row.id}`}>
+                                <IconButton color='secondary' component={Link} to={`/admin/autors/${row.id}`}>
                                     <EditRoundedIcon></EditRoundedIcon>
                                 </IconButton>
-                                <IconButton color='darker' onClick={() => deleteNews(row.id)}>
+                                <IconButton color='darker' onClick={() => deleteResources(row.id)}>
                                     <DeleteRoundedIcon></DeleteRoundedIcon>
                                 </IconButton>
                             </TableCell>
@@ -186,7 +195,7 @@ function CustomPaginationActionsTable() {
                         <TablePagination
                             rowsPerPageOptions={[10, 15, 25, { label: 'All', value: -1 }]}
                             colSpan={3}
-                            count={news.length}
+                            count={autors.length}
                             rowsPerPage={rowsPerPage}
                             page={page}
                             SelectProps={{
@@ -206,13 +215,12 @@ function CustomPaginationActionsTable() {
     );
 }
 
-function NewsAdmin() {
-
+function ResourceAdmin() {
     return (
         <Container>
             <Box paddingBottom={5}>
-                <NavLink to={'/admin/news/add'}>
-                    <Button startIcon={<ControlPointRoundedIcon></ControlPointRoundedIcon>} color='darker' variant="outlined" >Додати новину</Button>
+                <NavLink to={'/admin/resource/add'}>
+                    <Button startIcon={<ControlPointRoundedIcon></ControlPointRoundedIcon>} color='darker' variant="outlined" >Додати книжку</Button>
                 </NavLink>
             </Box>
             <CustomPaginationActionsTable></CustomPaginationActionsTable>
@@ -220,4 +228,4 @@ function NewsAdmin() {
     )
 }
 
-export default NewsAdmin
+export default ResourceAdmin

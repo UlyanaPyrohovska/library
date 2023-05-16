@@ -17,14 +17,14 @@ import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
-import { Button, Container, TableHead } from '@mui/material';
+import { Button, Container, TableHead, TextField } from '@mui/material';
 import ControlPointRoundedIcon from '@mui/icons-material/ControlPointRounded';
 import axiosClient from '../../axios';
 import { useState } from 'react';
 import { userStateContext } from '../../contexts/ContextProvider';
 import { useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-
+import styles from './styles.module.css'
 
 function TablePaginationActions(props) {
     const theme = useTheme();
@@ -127,97 +127,99 @@ function CustomPaginationActionsTable() {
     };
 
     return (
-        <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
-                <TableHead>
-                    <TableCell component="th" scope="row">
-                        Назва
-                    </TableCell>
-                    <TableCell align="center" component="th" scope="row">
-                        Опис
-                    </TableCell>
-                    <TableCell align="center" component="th" scope="row">
-                        Дата створення
-                    </TableCell>
-                    <TableCell align="center" component="th" scope="row">
-                        Дата редагування
-                    </TableCell>
-                    <TableCell align="center" component="th" scope="row">
-                        Дії
-                    </TableCell>
-                </TableHead>
-                <TableBody>
-                    {(rowsPerPage > 0
-                        ? news.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                        : news
-                    ).map((row) => (
-                        <TableRow key={row.id}>
-                            <TableCell component="th" scope="row">
-                                {row.title}
-                            </TableCell>
-                            <TableCell style={{ width: 190 }} align="center">
-                                {row.body.slice(0, 20) + '...'}
-                            </TableCell>
-                            <TableCell style={{ width: 190 }} align="center">
-                                {row.created_at}
-                            </TableCell>
-                            <TableCell style={{ width: 190 }} align="center">
-                                {row.updated_at}
-                            </TableCell>
-                            <TableCell style={{ width: 160 }} align="center">
-                                <IconButton color='secondary' component={Link} to={`/admin/news/${row.id}`}>
-                                    <EditRoundedIcon></EditRoundedIcon>
-                                </IconButton>
-                                <IconButton color='darker' onClick={() => deleteNews(row.id)}>
-                                    <DeleteRoundedIcon></DeleteRoundedIcon>
-                                </IconButton>
-                            </TableCell>
-                        </TableRow>
-                    ))}
+        <Box>
+            <h2>eSUIR - Electronic State University Institutional Repository</h2>
+            <div className={styles.search}>
+                <TextField
+                    id="outlined-basic"
+                    // onChange={ }
+                    variant="outlined"
+                    fullWidth
+                    label="Search"
+                />
+            </div>
+            <Box backgroundColor={' #D9C1AB'} padding={'20px'} borderRadius={'30px'} >
 
-                    {emptyRows > 0 && (
-                        <TableRow style={{ height: 53 * emptyRows }}>
-                            <TableCell colSpan={6} />
-                        </TableRow>
-                    )}
-                </TableBody>
-                <TableFooter>
-                    <TableRow>
-                        <TablePagination
-                            rowsPerPageOptions={[10, 15, 25, { label: 'All', value: -1 }]}
-                            colSpan={3}
-                            count={news.length}
-                            rowsPerPage={rowsPerPage}
-                            page={page}
-                            SelectProps={{
-                                inputProps: {
-                                    'aria-label': 'rows per page',
-                                },
-                                native: true,
-                            }}
-                            onPageChange={handleChangePage}
-                            onRowsPerPageChange={handleChangeRowsPerPage}
-                            ActionsComponent={TablePaginationActions}
-                        />
-                    </TableRow>
-                </TableFooter>
-            </Table>
-        </TableContainer>
+                <h2 className={styles.title}>Відображення результатів від 1 до 20 із 89038</h2>
+                <TableContainer component={Paper}>
+                    <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>Рік випуску</TableCell>
+                                <TableCell align="right">Назва</TableCell>
+                                <TableCell align="right">Автор</TableCell>
+                                <TableCell align="right">Тип</TableCell>
+                                <TableCell align="right">Переглядів</TableCell>
+                                <TableCell align="right">Завантажено</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {(rowsPerPage > 0
+                                ? news.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                : news
+                            ).map((row) => (
+                                <TableRow key={row.id}>
+                                    <TableCell component="th" scope="row">
+                                        {row.title}
+                                    </TableCell>
+                                    <TableCell style={{ width: 190 }} align="right">
+                                        {row.body.slice(0, 20) + '...'}
+                                    </TableCell>
+                                    <TableCell style={{ width: 190 }} align="right">
+                                        {row.created_at}
+                                    </TableCell>
+                                    <TableCell style={{ width: 190 }} align="right">
+                                        {row.updated_at}
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+
+                            {emptyRows > 0 && (
+                                <TableRow style={{ height: 53 * emptyRows }}>
+                                    <TableCell colSpan={6} />
+                                </TableRow>
+                            )}
+                        </TableBody>
+                        <TableFooter>
+                            <TableRow>
+                                <TablePagination
+                                    rowsPerPageOptions={[10, 15, 25, { label: 'All', value: -1 }]}
+                                    colSpan={3}
+                                    count={news.length}
+                                    rowsPerPage={rowsPerPage}
+                                    page={page}
+                                    SelectProps={{
+                                        inputProps: {
+                                            'aria-label': 'rows per page',
+                                        },
+                                        native: true,
+                                    }}
+                                    onPageChange={handleChangePage}
+                                    onRowsPerPageChange={handleChangeRowsPerPage}
+                                    ActionsComponent={TablePaginationActions}
+                                />
+                            </TableRow>
+                        </TableFooter>
+                    </Table>
+                </TableContainer>
+            </Box>
+        </Box>
+
+
     );
 }
 
-function NewsAdmin() {
-
+function Search() {
     return (
         <Container>
-            <Box paddingBottom={5}>
+            {/* <Box paddingBottom={5}>
                 <NavLink to={'/admin/news/add'}>
                     <Button startIcon={<ControlPointRoundedIcon></ControlPointRoundedIcon>} color='darker' variant="outlined" >Додати новину</Button>
                 </NavLink>
-            </Box>
+            </Box> */}
             <CustomPaginationActionsTable></CustomPaginationActionsTable>
         </Container>
     )
 }
 
-export default NewsAdmin
+export default Search
