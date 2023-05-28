@@ -11,6 +11,6 @@ class Category extends Model
     const CREATED_AT = null;
     const UPDATED_AT = null;
 
-    protected $fillable = ['name', 'description'];
+    protected $fillable = ['name', 'description', 'type'];
 
 }

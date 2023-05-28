@@ -1,39 +1,76 @@
 import React, { useEffect, useState } from 'react'
 import styles from './styles.module.css'
-import { Box } from '@mui/material'
+import { Box, Container } from '@mui/material'
 import { Link } from 'react-router-dom'
 import Logo from '../../assets/img/icon.png'
 import { userStateContext } from '../../contexts/ContextProvider'
 import axiosClient from '../../axios'
-//import { axios } from 'axios';
 
 function RepoHome() {
     const { setLoad } = userStateContext();
-    const [categories, setCategories] = useState();
+    const [categories, setCategories] = useState([]);
+    const [categoriesWorkers, setCategoriesWorkers] = useState([]);
+    const categoriesStudents = [];
+    const [books, setBooks] = useState([]);
 
     async function fetchData() {
         setLoad(true);
-        console.log(categories);
         const { data } = await axiosClient.get('/category');
-        console.log(data);
         setCategories(data.data);
-        console.log(categories);
         setLoad(false);
     }
 
     useEffect(() => {
         fetchData();
-        // setLoad(true);
-        // axiosClient.get('/category').then(({ data }) => {
-        //     setCategories(data.data);
-        //     // console.log(data.data);
-        //     // console.log(categories);
-        //     setLoad(false);
-        // }).catch(err => {
-        //     console.log(err);
-        //     navigate('/not-found');
-        // })
     }, []);
+
+    const renderCategoriesWorkers = () => {
+        const categoriesWorkers = categories.filter((it) => { if (it.type == 'workers') return it });
+        return (
+            <Box maxWidth={'700px'} display={'flex'} flexDirection={'row'} justifyContent={'space-between'}>
+                <ul className={styles.listWrap}>
+                    {categoriesWorkers?.slice(0, 8).map((item) => {
+                        return (
+                            <li><Link>{item.name}</Link></li>
+                        );
+                    })
+                    }
+                </ul>
+                <ul className={styles.listWrap}>
+                    {categoriesWorkers?.slice(8, 16).map((item) => {
+                        return (
+                            <li><Link>{item.name}</Link></li>
+                        );
+                    })
+                    }
+                </ul>
+                <ul className={styles.listWrap}>
+                    {categoriesWorkers?.slice(16).map((item) => {
+                        return (
+                            <li><Link>{item.name}</Link></li>
+                        );
+                    })
+                    }
+                </ul>
+            </Box>
+        );
+    }
+
+    const renderCategoriesStudents = () => {
+        const categoriesStudents = categories.filter((it) => { if (it.type == 'students') return it });
+        return (
+            <Box maxWidth={'700px'} display={'flex'} flexDirection={'row'} justifyContent={'space-between'}>
+                <ul className={styles.listWrap}>
+                    {categoriesStudents?.slice(0).map((item) => {
+                        return (
+                            <li><Link>{item.name}</Link></li>
+                        );
+                    })
+                    }
+                </ul>
+            </Box>
+        );
+    }
 
     const Bar = (props) => {
         return (
@@ -44,7 +81,7 @@ function RepoHome() {
     };
 
     return (
-        <>
+        <Container>
             <Bar title={'KDIDPMID'}></Bar>
             <Box paddingTop={"40px"} display={'flex'} flexDirection={'row'} justifyContent={'space-between'}>
                 <Box maxWidth={'760px'} minHeight={'470px'} display={'flex'} flexDirection={'column'} justifyContent={'space-between'}>
@@ -55,8 +92,8 @@ function RepoHome() {
                         Наукові публікації студентів розміщуються за умови наявності рекомендації
                         наукового керівника.</span>
                     <Box display={'flex'} justifyContent={'space-between'}>
-                        <span style={{ fontWeight: 'bold' }}>Кількість документів:</span>
-                        <span style={{ fontWeight: 'bold' }}>Останнє оновлення:</span>
+                        <span style={{ fontWeight: 'bold' }}>Кількість документів: 50</span>
+                        <span style={{ fontWeight: 'bold' }}>Останнє оновлення: 2023-17-05</span>
                     </Box>
                     <div className={styles.linksWrap}>
                         <Link>Положення про Інституційний репозитарій КДАДПМіД</Link>
@@ -84,60 +121,12 @@ function RepoHome() {
                 <Box display={'flex'} flexDirection={'row'} justifyContent={'space-between'}>
                     <Box>
                         <h2>Науково-педагогічні працівники:</h2>
-                        <Box maxWidth={'700px'} display={'flex'} flexDirection={'row'} justifyContent={'space-between'}>
-                            {categories?.map((item) => {
-                                <ul className={styles.listWrap}>
-                                    <li><Link>{item.name}</Link></li>
-                                </ul>
-                            })
-                            }
-                            <ul className={styles.listWrap}>
-                                <li><Link>Навчальний посібник</Link></li>
-                                <li><Link>Навчальний посібник</Link></li>
-                                <li><Link>Навчальний посібник</Link></li>
-                                <li><Link>Навчальний посібник</Link></li>
-                                <li><Link>Навчальний посібник</Link></li>
-                                <li><Link>Навчальний посібник</Link></li>
-                                <li><Link>Навчальний посібник</Link></li>
-                                <li><Link>Навчальний посібник</Link></li>
-                            </ul>
-                            <ul className={styles.listWrap}>
-                                <li><Link>Навчальний посібник</Link></li>
-                                <li><Link>Навчальний посібник</Link></li>
-                                <li><Link>Навчальний посібник</Link></li>
-                                <li><Link>Навчальний посібник</Link></li>
-                                <li><Link>Навчальний посібник</Link></li>
-                                <li><Link>Навчальний посібник</Link></li>
-                                <li><Link>Навчальний посібник</Link></li>
-                                <li><Link>Навчальний посібник</Link></li>
-                            </ul>
-                            <ul className={styles.listWrap}>
-                                <li><Link>Навчальний посібник</Link></li>
-                                <li><Link>Навчальний посібник</Link></li>
-                                <li><Link>Навчальний посібник</Link></li>
-                                <li><Link>Навчальний посібник</Link></li>
-                                <li><Link>Навчальний посібник</Link></li>
-                                <li><Link>Навчальний посібник</Link></li>
-                                <li><Link>Навчальний посібник</Link></li>
-                                <li><Link>Навчальний посібник</Link></li>
-                            </ul>
-                        </Box>
+                        {renderCategoriesWorkers()}
                     </Box>
                     <Box>
                         <Box>
                             <h2>Здобувачі:</h2>
-                            <Box maxWidth={'700px'} display={'flex'} flexDirection={'row'} justifyContent={'space-between'}>
-                                <ul className={styles.listWrap}>
-                                    <li><Link>Навчальний посібник</Link></li>
-                                    <li><Link>Навчальний посібник</Link></li>
-                                    <li><Link>Навчальний посібник</Link></li>
-                                    <li><Link>Навчальний посібник</Link></li>
-                                    <li><Link>Навчальний посібник</Link></li>
-                                    <li><Link>Навчальний посібник</Link></li>
-                                    <li><Link>Навчальний посібник</Link></li>
-                                    <li><Link>Навчальний посібник</Link></li>
-                                </ul>
-                            </Box>
+                            {renderCategoriesStudents()}
                         </Box>
                     </Box>
                 </Box>
@@ -152,7 +141,7 @@ function RepoHome() {
                 </div>
             </Box>
 
-        </>
+        </Container>
     )
 }
 

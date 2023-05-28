@@ -2,25 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\PubHouseResource;
-use App\Models\PubHouse;
+use App\Http\Resources\KeyWordResource;
+use App\Models\KeyWord;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StorePubHouseRequest;
-use App\Http\Requests\UpdatePubHouseRequest;
+use App\Http\Requests\StoreKeyWordRequest;
+use App\Http\Requests\UpdateKeyWordRequest;
 
-class PubHouseController extends Controller
+class KeyWordController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return PubHouseResource::collection(
-            PubHouse::all()
-                ->sortBy(
-                    'created_at',
-                    descending: false
-                )
+        return KeyWordResource::collection(
+            KeyWord::all()->sortBy(
+                'created_at',
+                descending: false
+            )
         );
     }
 
@@ -35,7 +34,7 @@ class PubHouseController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorePubHouseRequest $request)
+    public function store(StoreKeyWordRequest $request)
     {
         //
     }
@@ -43,7 +42,7 @@ class PubHouseController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(PubHouse $pubHouse)
+    public function show(KeyWord $keyWord)
     {
         //
     }
@@ -51,7 +50,7 @@ class PubHouseController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(PubHouse $pubHouse)
+    public function edit(KeyWord $keyWord)
     {
         //
     }
@@ -59,7 +58,7 @@ class PubHouseController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePubHouseRequest $request, PubHouse $pubHouse)
+    public function update(UpdateKeyWordRequest $request, KeyWord $keyWord)
     {
         //
     }
@@ -67,7 +66,7 @@ class PubHouseController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(PubHouse $pubHouse)
+    public function destroy(KeyWord $keyWord)
     {
         //
     }

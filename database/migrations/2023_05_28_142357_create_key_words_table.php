@@ -10,15 +10,9 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('books', function (Blueprint $table) {
+        Schema::create('key_words', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('year');
-            $table->integer('num_of_down');
-            $table->integer('num_of_views');
-            $table->string('file');
-            $table->foreignIdFor(\App\Models\Category::class, 'category_id');
-            $table->foreignIdFor(\App\Models\PubHouse::class, 'pubhouse_id');
             $table->timestamps();
         });
     }
@@ -28,6 +22,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('books');
+        Schema::dropIfExists('key_words');
     }
 };

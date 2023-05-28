@@ -1,6 +1,5 @@
 import { React } from 'react'
 import '../assets/css/header.css';
-import Logo from '../assets/img/logo.png';
 import Lupa from '../assets/img/lupa.png'
 import { Link, NavLink } from 'react-router-dom';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -50,7 +49,7 @@ function HeaderRepository() {
             </NavLink> */}
             <Button main={{ name: "Перегляд", href: "/repo" }} contents={[{ name: "Розділи та колекції", href: "/geninfo" }, { name: "Роком випуску", href: "/structure" }, { name: "Автором", href: "/schedule" }, { name: "Назвою", href: "/contacts" }, { name: "Ключовм словом", href: "/contacts" }, { name: "Нові надходження", href: "/contacts" }]}></Button>
             <Button main={{ name: "Довідка", href: "/info" }}></Button>
-            <a href="">
+            <a href="/repo/search">
                 <div className="search-box">
                     <img className="lupa" src={Lupa}></img>
                 </div>

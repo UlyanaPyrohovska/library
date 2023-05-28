@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreBookRequest extends FormRequest
+class StoreKeyWordRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return false;
     }
 
     /**
@@ -22,15 +22,7 @@ class StoreBookRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255',
-            'year' => 'required|',
-            'category' => 'exists:categories,id',
-            'authors' => 'required',
-            'keywords' => 'required',
-            'link' => 'required|string',
-            'pub_house' => 'exists:pub_houses,id',
-
-            // 'user_id' => 'exists:users,id',
+            //
         ];
     }
 }

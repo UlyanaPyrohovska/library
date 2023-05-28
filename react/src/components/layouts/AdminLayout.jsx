@@ -1,5 +1,5 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { userStateContext } from "../contexts/ContextProvider";
+import { userStateContext } from "../../contexts/ContextProvider";
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
@@ -18,12 +18,12 @@ import MenuBookRoundedIcon from '@mui/icons-material/MenuBookRounded';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Logo from '../assets/img/icon.png';
+import Logo from '../../assets/img/icon.png';
 import NewspaperRoundedIcon from '@mui/icons-material/NewspaperRounded';
 import LayersRoundedIcon from '@mui/icons-material/LayersRounded';
 import LogoutIcon from '@mui/icons-material/Logout';
 import GroupIcon from '@mui/icons-material/Group';
-import axiosClient from '../axios';
+import axiosClient from '../../axios';
 
 const drawerWidth = 240;
 
@@ -69,8 +69,8 @@ export default function AdminLayout(props) {
                         <ListItemText primary='Новини' />
                     </ListItemButton>
                 </ListItem>
-                <ListItem disablePadding to={'/admin/pubhouses'}>
-                    <ListItemButton>
+                <ListItem disablePadding>
+                    <ListItemButton to={'/admin/pubhouses'}>
                         <ListItemIcon>
                             <LayersRoundedIcon />
                         </ListItemIcon>

@@ -5,13 +5,13 @@ import '../assets/css/slider.css'
 
 export const SliderData = [
     {
-        text: '1Lörem ipsum gönt mavis i multinesm bloggbävning mobillångfilm poddsändning såväl som ekogisk.Mp3-spelare vandrande skolbuss, än dra ett streck i sanden kontrasion och Viktor Nordin heteronetik i paddeltennis.Stuprörspolitik kuddbok emedan biofoni att fröbomba inte sudoku preosmos rödgrönrosa, inte konlog ifall kuratera samt halmdocka.'
+        text: "Відчуйте магію слова в нашій бібліотеці, де час зупиняється, а фантазія стає реальністю. Запрошуємо вас відкрити двері до світу пригод, знань та безконечних можливостей."
     },
     {
-        text: '2Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem doloribus quisquam quis ea nobis, rem, illum saepe dolor dignissimos ipsum adipisci excepturi aperiam non eveniet iste repellendus quae quam? Animi!'
+        text: "Крокуйте у світ книжок, де багатство інформації, розваги та освіти об'єднуються. Наша бібліотека запрошує вас на відкриття нових горизонтів і пошук пригод."
     },
     {
-        text: '3Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem doloribus quisquam quis ea nobis, rem, illum saepe dolor dignissimos ipsum adipisci excepturi aperiam non eveniet iste repellendus quae quam? Animi!'
+        text: "Ласкаво просимо до нашої бібліотеки, місця, де слова оживають, і знання стають безмежними. Запрошуємо вас відкрити сторінки історій, погрузитися у світи фантазії та знайти відповіді на ваші запитання."
     },
 ]
 

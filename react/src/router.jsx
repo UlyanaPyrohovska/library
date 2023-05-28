@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom"
 import Login from "./views/Login"
-import GuestLayout from "./components/GuestLayout"
-import DefaultLayout from "./components/DefaultLayout"
+import GuestLayout from "./components/layouts/GuestLayout"
+import DefaultLayout from "./components/layouts/DefaultLayout"
 import Homepage from "./views/Homepage"
 import Signup from "./views/Signup"
 import About from "./views/AboutPage"
@@ -9,7 +9,7 @@ import GeneralInfo from "./views/GenInfo"
 import Schedule from "./views/Schedule"
 import Contacts from "./views/Contacts"
 import Structure from "./views/Structure"
-import AdminLayout from "./components/AdminLayout"
+import AdminLayout from "./components/layouts/AdminLayout"
 import AdminPanel from "./views/admin/AdminPanel"
 import NewsAdmin from "./views/admin/NewsAdmin"
 import NewsAdd from "./views/admin/NewsAdd"
@@ -17,11 +17,13 @@ import UserAdmin from "./views/admin/UserAdmin"
 import NewsLayout from "./components/NewsLayout"
 import NotFound from "./views/NotFound"
 import NewsView from "./views/NewsView"
-import RepositoryLayout from "./components/RepositoryLayout"
+import RepositoryLayout from "./components/layouts/RepositoryLayout"
 import Search from "./views/repo/Search"
 import RepoHome from "./views/repo/RepoHome"
 import AuthorsAdmin from "./views/admin/AuthorsAdmin"
 import ResourceAdmin from "./views/admin/ResourceAdmin"
+import PubHouseAdmin from "./views/admin/PubHouseAdmin"
+import ResourceAdd from "./views/admin/ResourceAdd"
 
 const router = createBrowserRouter(
     [
@@ -126,6 +128,14 @@ const router = createBrowserRouter(
                 {
                     path: '/admin/resources',
                     element: <ResourceAdmin />
+                },
+                {
+                    path: '/admin/resource/add',
+                    element: <ResourceAdd />
+                },
+                {
+                    path: '/admin/pubhouses',
+                    element: <PubHouseAdmin />
                 },
             ]
         }

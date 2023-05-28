@@ -1,7 +1,7 @@
-import { Outlet } from "react-router-dom";
-import Footer from "./Footer";
-import Header from "./Header";
-import { userStateContext } from "../contexts/ContextProvider";
+import { Navigate, Outlet } from "react-router-dom";
+import Footer from "../Footer";
+import Header from "../Header";
+import { userStateContext } from "../../contexts/ContextProvider";
 import { Container } from "@mui/material";
 
 

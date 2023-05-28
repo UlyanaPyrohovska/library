@@ -18,11 +18,10 @@ class BookResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'year' => $this->year,
-            'isbn' => $this->isbn,
-            'num_of_pages' => $this->num_of_pages,
             'num_of_down' => $this->num_of_down,
             'num_of_views' => $this->num_of_views,
-            'author' => new AuthorResource($this->author),
+            'authors' => AuthorResource::collection($this->authors),
+            'keywords' => KeyWordResource::collection($this->keywords),
             'pubHouse' => new PubHouseResource($this->pubhouse),
             'category' => new CategoryResource($this->category),
         ];

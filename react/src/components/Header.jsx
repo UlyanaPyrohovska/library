@@ -46,16 +46,16 @@ export default function Header() {
             <Button main={{ name: "Сервіси та послуги", href: "/about" }} contents={[{ name: "Користувачам", href: "/" }, { name: "Онлайн сервіси", href: "/" }, { name: "Розділи та колекції", href: "/" }, { name: "Співпраця", href: "/" }]}></Button>
             <Button main={{ name: "Ресурси", href: "/about" }} contents={[{ name: "Е-Ресурси", href: "/" }, { name: "Бібліографічні ресурси", href: "/" }, { name: "Передплачені ресурси", href: "/" }, { name: "Ресурси відкритого доступу", href: "/" }]}></Button>
             <Button main={{ name: "Новини", href: "/news" }}></Button>
-            <a href="">
+            <a href="/repo/search">
                 <div className="search-box">
                     <img className="lupa" src={Lupa}></img>
                 </div>
             </a>
-            <Box display={'flex'} alignItems={'center'} justifyContent={'center'}>
+            {/* <Box display={'flex'} alignItems={'center'} justifyContent={'center'}>
                 <Link href='#' onClick={(ev) => logout(ev)}>
                     <LogoutIcon fontSize='large' color='primary.darker'></LogoutIcon>
                 </Link>
-            </Box>
+            </Box> */}
         </div>
     )
 }
